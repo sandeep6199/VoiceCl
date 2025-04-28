@@ -1,0 +1,103 @@
+<svg width="600" height="400" viewBox="0 0 600 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background shape -->
+  <path d="M50 200C50 89.543 139.543 0 250 0H550C560.493 0 569 8.50659 569 19V381C569 391.493 560.493 400 550 400H250C139.543 400 50 310.457 50 200Z" fill="#F3F4F6" opacity="0.5"/>
+  
+  <!-- Sound waves -->
+  <g class="sound-waves" opacity="0.9">
+    <path d="M300 130V270" stroke="#6366F1" stroke-width="4" stroke-linecap="round"/>
+    <path d="M320 150V250" stroke="#6366F1" stroke-width="4" stroke-linecap="round"/>
+    <path d="M340 170V230" stroke="#6366F1" stroke-width="4" stroke-linecap="round"/>
+    <path d="M360 160V240" stroke="#6366F1" stroke-width="4" stroke-linecap="round"/>
+    <path d="M380 140V260" stroke="#6366F1" stroke-width="4" stroke-linecap="round"/>
+    <path d="M400 180V220" stroke="#6366F1" stroke-width="4" stroke-linecap="round"/>
+    <path d="M420 150V250" stroke="#6366F1" stroke-width="4" stroke-linecap="round"/>
+    <path d="M440 170V230" stroke="#6366F1" stroke-width="4" stroke-linecap="round"/>
+  </g>
+
+  <!-- Microphone body -->
+  <rect x="180" y="130" width="80" height="140" rx="40" fill="#4F46E5"/>
+  <rect x="180" y="130" width="80" height="140" rx="40" fill="url(#paint0_linear)" fill-opacity="0.5"/>
+  
+  <!-- Microphone head -->
+  <ellipse cx="220" cy="130" rx="40" ry="20" fill="#4F46E5"/>
+  <ellipse cx="220" cy="130" rx="40" ry="20" fill="url(#paint1_linear)" fill-opacity="0.4"/>
+  
+  <!-- Microphone stand -->
+  <rect x="215" y="270" width="10" height="50" fill="#4F46E5"/>
+  <rect x="180" y="320" width="80" height="10" rx="5" fill="#4F46E5"/>
+  
+  <!-- AI chip -->
+  <rect x="420" y="270" width="80" height="80" rx="10" fill="#10B981"/>
+  <path d="M440 290H460M440 310H480M440 330H470" stroke="white" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="480" cy="290" r="5" fill="white"/>
+  
+  <!-- Connection lines -->
+  <path d="M260 200C310 200 370 220 420 310" stroke="#6366F1" stroke-width="2" stroke-dasharray="6 6"/>
+  
+  <!-- Voice waves around mic -->
+  <circle cx="220" cy="200" r="60" stroke="#6366F1" stroke-width="2" stroke-dasharray="8 8" fill="none"/>
+  <circle cx="220" cy="200" r="90" stroke="#6366F1" stroke-width="2" stroke-dasharray="8 8" fill="none"/>
+  
+  <!-- Decorative elements -->
+  <circle cx="150" cy="100" r="20" fill="#8B5CF6" fill-opacity="0.2"/>
+  <circle cx="480" cy="150" r="30" fill="#10B981" fill-opacity="0.2"/>
+  <circle cx="380" cy="350" r="15" fill="#6366F1" fill-opacity="0.2"/>
+  
+  <!-- Gradients -->
+  <defs>
+    <linearGradient id="paint0_linear" x1="220" y1="130" x2="220" y2="270" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#818CF8"/>
+      <stop offset="1" stop-color="#4F46E5"/>
+    </linearGradient>
+    <linearGradient id="paint1_linear" x1="220" y1="110" x2="220" y2="150" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#818CF8"/>
+      <stop offset="1" stop-color="#4F46E5"/>
+    </linearGradient>
+  </defs>
+  
+  <style>
+    .sound-waves path {
+      animation-name: pulse;
+      animation-duration: 2s;
+      animation-iteration-count: infinite;
+      animation-timing-function: ease-in-out;
+    }
+    
+    .sound-waves path:nth-child(2) {
+      animation-delay: 0.1s;
+    }
+    
+    .sound-waves path:nth-child(3) {
+      animation-delay: 0.2s;
+    }
+    
+    .sound-waves path:nth-child(4) {
+      animation-delay: 0.3s;
+    }
+    
+    .sound-waves path:nth-child(5) {
+      animation-delay: 0.4s;
+    }
+    
+    .sound-waves path:nth-child(6) {
+      animation-delay: 0.5s;
+    }
+    
+    .sound-waves path:nth-child(7) {
+      animation-delay: 0.6s;
+    }
+    
+    .sound-waves path:nth-child(8) {
+      animation-delay: 0.7s;
+    }
+    
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 0.3;
+      }
+      50% {
+        opacity: 1;
+      }
+    }
+  </style>
+</svg> 

@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoxLite - Next Generation Voice Cloning Technology</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/all.min.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Page Loader -->
+    <div class="page-loader">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <a href="#" class="logo"><span>Vox</span>Lite</a>
+            <nav class="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#industries">Industries</a></li>
+                    <li><a href="#case-study">Case Study</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <button id="login-btn" class="btn-login">Login</button>
+                <button id="register-btn" class="btn-register">Sign Up</button>
+            </div>
+            <button class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="voice-wave-background">
+            <div class="wave-line wave-1"></div>
+            <div class="wave-line wave-2"></div>
+            <div class="wave-line wave-3"></div>
+        </div>
+        <div class="floating-elements">
+            <div class="floating-element fe-1"></div>
+            <div class="floating-element fe-2"></div>
+            <div class="floating-element fe-3"></div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">NEXT-GEN TECHNOLOGY</div>
+                <h1 class="hero-title">Advanced <span class="gradient-text">Voice Cloning</span> Technology</h1>
+                <p class="hero-description">Create natural-sounding voices with just minutes of audio data. Our lightweight solution brings human-like speech to your applications.</p>
+                <div class="hero-cta">
+                    <button id="try-demo-btn" class="btn-primary">Try Demo</button>
+                    <button id="learn-more-btn" class="btn-outline">Learn More</button>
+                </div>
+            </div>
+            <div class="hero-visualization">
+                <div class="visualizer-container">
+                    <div class="visualizer-glow"></div>
+                    <div class="voice-visualizer">
+                        <div class="visualizer-bar" style="--i:0"></div>
+                        <div class="visualizer-bar" style="--i:1"></div>
+                        <div class="visualizer-bar" style="--i:2"></div>
+                        <div class="visualizer-bar" style="--i:3"></div>
+                        <div class="visualizer-bar" style="--i:4"></div>
+                        <div class="visualizer-bar" style="--i:5"></div>
+                        <div class="visualizer-bar" style="--i:6"></div>
+                        <div class="visualizer-bar" style="--i:7"></div>
+                        <div class="visualizer-bar" style="--i:8"></div>
+                        <div class="visualizer-bar" style="--i:9"></div>
+                        <div class="visualizer-bar" style="--i:10"></div>
+                        <div class="visualizer-bar" style="--i:11"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-wrapper">
+                <div class="stat-item" data-value="98" data-unit="%">
+                    <div class="stat-circle">
+                        <svg width="140" height="140" viewBox="0 0 140 140">
+                            <circle class="stat-circle-bg" cx="70" cy="70" r="60" />
+                            <circle class="stat-circle-progress" cx="70" cy="70" r="60" />
+                        </svg>
+                        <span class="stat-value">0%</span>
+                    </div>
+                    <p>Voice Similarity Accuracy</p>
+                </div>
+                <div class="stat-item" data-value="3" data-unit="min">
+                    <div class="stat-circle">
+                        <svg width="140" height="140" viewBox="0 0 140 140">
+                            <circle class="stat-circle-bg" cx="70" cy="70" r="60" />
+                            <circle class="stat-circle-progress" cx="70" cy="70" r="60" />
+                        </svg>
+                        <span class="stat-value">0min</span>
+                    </div>
+                    <p>Training Data Required</p>
+                </div>
+                <div class="stat-item" data-value="15" data-unit="ms">
+                    <div class="stat-circle">
+                        <svg width="140" height="140" viewBox="0 0 140 140">
+                            <circle class="stat-circle-bg" cx="70" cy="70" r="60" />
+                            <circle class="stat-circle-progress" cx="70" cy="70" r="60" />
+                        </svg>
+                        <span class="stat-value">0ms</span>
+                    </div>
+                    <p>Processing Latency</p>
+                </div>
+                <div class="stat-item" data-value="60" data-unit="%">
+                    <div class="stat-circle">
+                        <svg width="140" height="140" viewBox="0 0 140 140">
+                            <circle class="stat-circle-bg" cx="70" cy="70" r="60" />
+                            <circle class="stat-circle-progress" cx="70" cy="70" r="60" />
+                        </svg>
+                        <span class="stat-value">0%</span>
+                    </div>
+                    <p>Less Computing Power</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Industries Section -->
+    <section id="industries" class="industries">
+        <div class="container">
+            <div class="section-header fade-in">
+                <div class="tagline">INDUSTRIES</div>
+                <h2>Creating Voices Across Industries</h2>
+                <p>Our lightweight voice technology transforms user experiences across multiple sectors</p>
+            </div>
+            <div class="industry-cards stagger-children">
+                <div class="industry-card">
+                    <div class="icon">🎮</div>
+                    <h3>Gaming</h3>
+                    <p>Create realistic NPC voices that adapt in real-time with minimal computational resources, enhancing player immersion.</p>
+                </div>
+                <div class="industry-card">
+                    <div class="icon">🎙️</div>
+                    <h3>Media & Dubbing</h3>
+                    <p>Rapid audiobook or dubbing creation without extensive studio time, requiring just minutes of voice samples.</p>
+                </div>
+                <div class="industry-card">
+                    <div class="icon">🛍️</div>
+                    <h3>Customer Service</h3>
+                    <p>Personalized virtual assistants that deliver consistent, natural-sounding support across all customer touchpoints.</p>
+                </div>
+                <div class="industry-card">
+                    <div class="icon">♿</div>
+                    <h3>Accessibility</h3>
+                    <p>Assistive technologies that help people with speech disabilities communicate in their own unique voice.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header fade-in">
+                <div class="tagline">WHY CHOOSE US</div>
+                <h2>Advanced Voice Technology</h2>
+                <p>Our lightweight, efficient solution outperforms traditional voice cloning systems</p>
+            </div>
+            <div class="feature-blocks stagger-children">
+                <div class="feature-block">
+                    <div class="feature-icon"><i class="fas fa-microphone-alt"></i></div>
+                    <h3>Minimal Data Requirements</h3>
+                    <p>Generate high-quality voices from just 3 minutes of audio samples, unlike systems requiring hours of training data.</p>
+                </div>
+                <div class="feature-block">
+                    <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+                    <h3>Low Computational Needs</h3>
+                    <p>Optimized to run on everyday devices with 60% less computing power than traditional systems.</p>
+                </div>
+                <div class="feature-block">
+                    <div class="feature-icon"><i class="fas fa-stopwatch"></i></div>
+                    <h3>Real-Time Processing</h3>
+                    <p>Industry-leading 15ms processing latency enables instant voice generation without noticeable delays.</p>
+                </div>
+            </div>
+            <div class="workflow-steps stagger-children">
+                <div class="step">
+                    <div class="step-number">01</div>
+                    <h3>Voice Sample Collection</h3>
+                </div>
+                <div class="step">
+                    <div class="step-number">02</div>
+                    <h3>AI Model Training</h3>
+                </div>
+                <div class="step">
+                    <div class="step-number">03</div>
+                    <h3>Real-time Voice Generation</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Case Study Section -->
+    <section id="case-study" class="case-study">
+        <div class="container">
+            <div class="section-header fade-in">
+                <div class="tagline">CASE STUDY</div>
+                <h2>See Our Technology in Action</h2>
+                <p>How our clients transform their customer experience</p>
+            </div>
+            <div class="case-study-content">
+                <div class="case-info fade-in-left">
+                    <h3>SuperSupport Customer Service Platform</h3>
+                    <ul class="case-points stagger-children">
+                        <li>78% reduction in customer wait time</li>
+                        <li>24/7 consistent voice support</li>
+                        <li>Personalized AI interactions</li>
+                        <li>90% positive customer feedback</li>
+                    </ul>
+                    <button class="case-btn">Read Full Case Study</button>
+                </div>
+                <div class="case-video fade-in-right">
+                    <div class="video-overlay">
+                        <button class="play-btn"><i class="fas fa-play"></i> Watch Demo</button>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial scale-in">
+                <div class="quote">"Our clients can't tell the difference between AI and human voices, but they notice the faster response time and consistent quality."</div>
+                <div class="author">Sarah Johnson (CTO, SuperSupport)</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-logo"><span>Vox</span>Lite</div>
+                <div class="footer-social">
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+            <div class="footer-columns">
+                <div class="footer-column">
+                    <h3>Product</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Features</a></li>
+                        <li><a href="#">API</a></li>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Release Notes</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Case Studies</a></li>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Community</a></li>
+                        <li><a href="#">Webinars</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Partners</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">GDPR</a></li>
+                        <li><a href="#">Responsible AI</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <p>&copy; 2023 VoxLite. All rights reserved.</p>
+                </div>
+                <div class="language-selector">
+                    <select>
+                        <option value="en">English</option>
+                        <option value="fr">Français</option>
+                        <option value="es">Español</option>
+                        <option value="de">Deutsch</option>
+                        <option value="jp">日本語</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button id="scroll-to-top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+
+    <!-- Modals -->
+    <div class="modal login-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Log In</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form class="login-form">
+                    <div class="form-group">
+                        <label for="login-email">Email</label>
+                        <input type="email" id="login-email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <div class="password-field">
+                            <input type="password" id="login-password" placeholder="Enter your password" required>
+                            <button type="button" class="password-toggle"><i class="fas fa-eye"></i></button>
+                        </div>
+                    </div>
+                    <div class="form-group checkbox">
+                        <input type="checkbox" id="remember-me">
+                        <label for="remember-me">Remember me</label>
+                    </div>
+                    <div class="forgot-password">
+                        <a href="#">Forgot Password?</a>
+                    </div>
+                    <button type="submit" class="login-submit">Log In</button>
+                </form>
+                <div class="alternative-login">
+                    <p>Or continue with</p>
+                    <div class="social-login">
+                        <button class="google-btn"><i class="fab fa-google"></i> Google</button>
+                        <button class="github-btn"><i class="fab fa-github"></i> GitHub</button>
+                    </div>
+                </div>
+                <div class="signup-prompt">
+                    Don't have an account? <a href="#" id="show-register">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal register-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create Account</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form class="register-form">
+                    <div class="form-group">
+                        <label for="register-name">Full Name</label>
+                        <input type="text" id="register-name" placeholder="Enter your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-email">Email</label>
+                        <input type="email" id="register-email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-password">Password</label>
+                        <div class="password-field">
+                            <input type="password" id="register-password" placeholder="Create a strong password" required>
+                            <button type="button" class="password-toggle"><i class="fas fa-eye"></i></button>
+                        </div>
+                        <div class="password-strength-wrapper">
+                            <div class="password-strength"></div>
+                        </div>
+                        <div class="hint">Use 8+ characters with a mix of letters, numbers & symbols</div>
+                    </div>
+                    <div class="form-group checkbox">
+                        <input type="checkbox" id="terms" required>
+                        <label for="terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+                    </div>
+                    <button type="submit" class="register-submit">Create Account</button>
+                </form>
+                <div class="alternative-login">
+                    <p>Or sign up with</p>
+                    <div class="social-login">
+                        <button class="google-btn"><i class="fab fa-google"></i> Google</button>
+                        <button class="github-btn"><i class="fab fa-github"></i> GitHub</button>
+                    </div>
+                </div>
+                <div class="signup-prompt">
+                    Already have an account? <a href="#" id="show-login">Log In</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal demo-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Try VoxLite Demo</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Upload a voice sample and see our technology in action.</p>
+                <!-- Demo form would go here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html> 
