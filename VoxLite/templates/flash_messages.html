@@ -1,0 +1,47 @@
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+<div class="flash-messages">
+    {% for category, message in messages %}
+    <div class="flash-message {{ category }}">
+        <div class="flash-content">
+            {% if category == 'success' %}
+            <div class="flash-icon"><i class="fas fa-check-circle"></i></div>
+            {% elif category == 'error' %}
+            <div class="flash-icon"><i class="fas fa-times-circle"></i></div>
+            {% elif category == 'info' %}
+            <div class="flash-icon"><i class="fas fa-info-circle"></i></div>
+            {% elif category == 'warning' %}
+            <div class="flash-icon"><i class="fas fa-exclamation-triangle"></i></div>
+            {% endif %}
+            <div class="flash-text">{{ message }}</div>
+        </div>
+        <button class="flash-close">&times;</button>
+    </div>
+    {% endfor %}
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const closeButtons = document.querySelectorAll('.flash-close');
+        closeButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const flashMessage = this.parentElement;
+                flashMessage.style.opacity = '0';
+                setTimeout(() => {
+                    flashMessage.style.display = 'none';
+                }, 300);
+            });
+        });
+
+        // Auto-hide after 5 seconds
+        setTimeout(function() {
+            document.querySelectorAll('.flash-message').forEach(message => {
+                message.style.opacity = '0';
+                setTimeout(() => {
+                    message.style.display = 'none';
+                }, 300);
+            });
+        }, 5000);
+    });
+</script>
+{% endif %}
+{% endwith %} 

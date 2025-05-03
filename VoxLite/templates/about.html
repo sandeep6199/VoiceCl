@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - VoxLite</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/all.min.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gradient-primary: linear-gradient(135deg, #6d28d9, #8b5cf6);
+            --gradient-dark: linear-gradient(135deg, #0f172a, #1e293b);
+            --bg-card: rgba(30, 41, 59, 0.5);
+            --border-thin: 1px solid rgba(255, 255, 255, 0.1);
+            --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+        
+        .about-page {
+            background: var(--gradient-dark);
+            min-height: 100vh;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .page-header {
+            padding: 120px 0 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .bg-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.05;
+            background-image: radial-gradient(rgba(139, 92, 246, 0.3) 1px, transparent 1px);
+            background-size: 30px 30px;
+            z-index: -1;
+        }
+        
+        .page-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #fff, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .page-subtitle {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .section {
+            padding: 60px 0;
+        }
+        
+        .section-dark {
+            background-color: rgba(15, 23, 42, 0.5);
+        }
+        
+        .section-darker {
+            background-color: rgba(15, 23, 42, 0.7);
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-tag {
+            display: inline-block;
+            background: var(--gradient-primary);
+            padding: 0.3rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            text-transform: uppercase;
+            color: white;
+        }
+        
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin: 0 0 0.8rem;
+        }
+        
+        .section-subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Mission Cards */
+        .mission-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .mission-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 2rem;
+            border: var(--border-thin);
+            box-shadow: var(--shadow-card);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .mission-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .mission-icon {
+            font-size: 2rem;
+            color: #8b5cf6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .mission-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+        
+        .mission-content {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.7);
+            flex-grow: 1;
+        }
+        
+        /* Team Section */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .team-member {
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: var(--border-thin);
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .member-image {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            border-bottom: var(--border-thin);
+        }
+        
+        .member-info {
+            padding: 1.5rem;
+        }
+        
+        .member-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0 0 0.3rem;
+        }
+        
+        .member-role {
+            color: #8b5cf6;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+        
+        .member-bio {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1.2rem;
+        }
+        
+        .member-social {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .member-social a {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1rem;
+            transition: color 0.2s, transform 0.2s;
+        }
+        
+        .member-social a:hover {
+            color: #8b5cf6;
+            transform: translateY(-2px);
+        }
+        
+        /* Timeline */
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background: rgba(139, 92, 246, 0.5);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            width: 100%;
+        }
+        
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .timeline-content {
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .timeline-date {
+            flex: 0 0 6rem;
+            text-align: right;
+            padding-right: 2rem;
+            font-weight: 600;
+            color: #8b5cf6;
+            font-size: 1.2rem;
+            position: relative;
+        }
+        
+        .timeline-date::after {
+            content: '';
+            position: absolute;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            background: #8b5cf6;
+            top: 0.3rem;
+            right: -0.5rem;
+        }
+        
+        .timeline-body {
+            flex: 1;
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: var(--border-thin);
+            box-shadow: var(--shadow-card);
+            margin-left: 2rem;
+        }
+        
+        .timeline-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0 0 0.5rem;
+        }
+        
+        .timeline-desc {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 2rem;
+            }
+            
+            .timeline-content {
+                flex-direction: column;
+            }
+            
+            .timeline-date {
+                flex: 0;
+                text-align: left;
+                padding-right: 0;
+                padding-left: 3rem;
+                margin-bottom: 0.5rem;
+            }
+            
+            .timeline-date::after {
+                left: 1.5rem;
+                right: auto;
+            }
+            
+            .timeline-body {
+                margin-left: 3rem;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .staggered-item {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        
+        .staggered-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="about-page">
+    <header class="header">
+        <div class="container">
+            <a href="/" class="logo"><span>Vox</span>Lite</a>
+            <nav class="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="/#features">Features</a></li>
+                    <li><a href="/#industries">Industries</a></li>
+                    <li><a href="/#case-study">Case Study</a></li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/voice_clone" class="upload-voice-btn"><i class="fas fa-microphone"></i> Upload Voice</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                {% if session.user_id %}
+                <a href="/dashboard" class="btn-login">Dashboard</a>
+                <a href="/logout" class="btn-register">Logout</a>
+                {% else %}
+                <a href="/login" class="btn-login">Login</a>
+                <a href="/register" class="btn-register">Sign Up</a>
+                {% endif %}
+            </div>
+            <button class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+    
+    {% include 'flash_messages.html' %}
+    
+    <!-- Hero Section -->
+    <section class="page-header">
+        <div class="bg-pattern"></div>
+        <div class="container">
+            <div class="fade-in">
+                <div class="section-tag">About Us</div>
+                <h1 class="page-title">Revolutionizing Voice Technology</h1>
+                <p class="page-subtitle">VoxLite is a cutting-edge voice cloning technology company enabling users to create natural-sounding digital voices with minimal data. We make advanced voice technology accessible to everyone.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Mission Section -->
+    <section class="section section-dark">
+        <div class="container">
+            <div class="section-header fade-in">
+                <div class="section-tag">Our Vision</div>
+                <h2 class="section-title">Our Mission and Values</h2>
+                <p class="section-subtitle">We are dedicated to democratizing voice technology and making it accessible for creators worldwide</p>
+            </div>
+            
+            <div class="mission-grid">
+                <div class="mission-card staggered-item">
+                    <div class="mission-icon">
+                        <i class="fas fa-microphone"></i>
+                    </div>
+                    <h3 class="mission-title">Our Mission</h3>
+                    <p class="mission-content">To make advanced voice technology accessible to everyone, from small creators to large enterprises, by building a lightweight, efficient system that requires minimal data and computational resources.</p>
+                </div>
+                
+                <div class="mission-card staggered-item">
+                    <div class="mission-icon">
+                        <i class="fas fa-hand-holding-heart"></i>
+                    </div>
+                    <h3 class="mission-title">Core Values</h3>
+                    <p class="mission-content">We prioritize accessibility, privacy, innovation, and quality in everything we do. We believe voice technology should be inclusive and available to everyone, regardless of technical expertise.</p>
+                </div>
+                
+                <div class="mission-card staggered-item">
+                    <div class="mission-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3 class="mission-title">Innovation Focus</h3>
+                    <p class="mission-content">Our team constantly pushes the boundaries of what's possible in voice synthesis, developing new methods that require less data while producing more natural results.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Team Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <div class="section-tag">Meet Our Team</div>
+                <h2 class="section-title">The People Behind VoxLite</h2>
+                <p class="section-subtitle">Passionate experts shaping the future of voice technology</p>
+            </div>
+            
+            <div class="team-grid">
+                <div class="team-member staggered-item">
+                    <img src="https://i.pravatar.cc/300?img=33" alt="Sandeep Sharma" class="member-image">
+                    <div class="member-info">
+                        <h3 class="member-name">Sandeep Sharma</h3>
+                        <p class="member-role">Founder & CEO</p>
+                        <p class="member-bio">Voice AI expert with extensive experience in deep learning and neural speech synthesis. Leading VoxLite's vision of democratizing voice technology.</p>
+                        <div class="member-social">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Timeline Section -->
+    <section class="section section-darker">
+        <div class="container">
+            <div class="section-header fade-in">
+                <div class="section-tag">Our Journey</div>
+                <h2 class="section-title">The VoxLite Story</h2>
+                <p class="section-subtitle">From an idea to a revolutionary voice technology platform</p>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2025</div>
+                        <div class="timeline-body">
+                            <h3 class="timeline-title">Project Inception</h3>
+                            <p class="timeline-desc">VoxLite was founded with a clear mission to democratize voice technology for everyone.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2025</div>
+                        <div class="timeline-body">
+                            <h3 class="timeline-title">Technology Development</h3>
+                            <p class="timeline-desc">Development of our core lightweight voice cloning technology began.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2025</div>
+                        <div class="timeline-body">
+                            <h3 class="timeline-title">Beta Testing</h3>
+                            <p class="timeline-desc">Launched our beta platform with early users testing our voice cloning capabilities.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2025</div>
+                        <div class="timeline-body">
+                            <h3 class="timeline-title">Multilingual Support</h3>
+                            <p class="timeline-desc">Added Hindi and other major language support to our voice cloning platform.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2025</div>
+                        <div class="timeline-body">
+                            <h3 class="timeline-title">Official Launch</h3>
+                            <p class="timeline-desc">Public release of our complete platform with industry-leading performance.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-column">
+                    <a href="/" class="logo footer-logo"><span>Vox</span>Lite</a>
+                    <p class="footer-desc">Next-generation voice cloning technology that requires minimal data and computational resources.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="/about">About</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Terms</a></li>
+                        <li><a href="#">Privacy</a></li>
+                        <li><a href="#">Licenses</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="mailto:info@voxlite.ai">info@voxlite.ai</a></li>
+                        <li><a href="tel:+1234567890">+1 (234) 567-890</a></li>
+                    </ul>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <p>&copy; 2025 VoxLite. All rights reserved.</p>
+                </div>
+                <div class="language-selector">
+                    <select name="language" id="language">
+                        <option value="en">English</option>
+                        <option value="es">Español</option>
+                        <option value="fr">Français</option>
+                        <option value="de">Deutsch</option>
+                        <option value="hi">हिंदी</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Mobile navigation menu toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navList = document.querySelector('.nav-list');
+        
+        if (menuToggle && navList) {
+            menuToggle.addEventListener('click', function() {
+                menuToggle.classList.toggle('active');
+                navList.classList.toggle('active');
+            });
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(e) {
+                if (navList.classList.contains('active') &&
+                    !navList.contains(e.target) &&
+                    !menuToggle.contains(e.target)) {
+                    menuToggle.classList.remove('active');
+                    navList.classList.remove('active');
+                }
+            });
+        }
+        
+        // Scroll animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            const staggeredItems = document.querySelectorAll('.staggered-item');
+            
+            // Initial animation for elements in viewport
+            checkVisibility();
+            
+            // Animation on scroll
+            window.addEventListener('scroll', checkVisibility);
+            
+            function checkVisibility() {
+                const windowHeight = window.innerHeight;
+                
+                fadeElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    if (elementTop < windowHeight * 0.9) {
+                        element.classList.add('visible');
+                    }
+                });
+                
+                staggeredItems.forEach((item, index) => {
+                    const elementTop = item.getBoundingClientRect().top;
+                    if (elementTop < windowHeight * 0.9) {
+                        setTimeout(() => {
+                            item.classList.add('visible');
+                        }, index * 100);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html> 
