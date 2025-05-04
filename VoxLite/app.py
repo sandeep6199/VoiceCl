@@ -319,17 +319,38 @@ def register():
         email = request.form.get('email')
         password = request.form.get('password')
         confirm_password = request.form.get('confirm_password')
-        if password != confirm_password:
-            # In a real app, you would flash a message here
+
+        # Validation checks
+        error = None
+        if not all([name, email, password, confirm_password]):
+            error = 'All fields are required'
+        elif password != confirm_password:
+            error = 'Passwords do not match'
+        elif len(password) < 8:
+            error = 'Password must be at least 8 characters long'
+        elif not any(char.isdigit() for char in password):
+            error = 'Password must contain at least one digit'
+        elif not any(char.isalpha() for char in password):
+            error = 'Password must contain at least one letter'
+        elif not any(char in '!@#$%^&*()_+' for char in password):
+            error = 'Password must contain at least one special character'
+        elif not any(char.isupper() for char in password):
+            error = 'Password must contain at least one uppercase letter'
+        elif User.query.filter_by(email=email).first():
+            error = 'Email already registered'
+
+        if error:
+            flash(error, 'error')
             return redirect(url_for('register'))
-        if User.query.filter_by(email=email).first():
-            # In a real app, you would flash a message here
-            return redirect(url_for('register'))
+
+        # If validation passes, create new user
         new_user = User(name=name, email=email, password=password)
         db.session.add(new_user)
         db.session.commit()
-        session['user'] = email
+        
+        flash('Registration successful! Please login.', 'success')
         return redirect(url_for('login'))
+
     return render_template('register.html')
 
 @app.route('/logout')
