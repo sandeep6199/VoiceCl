@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify, send_file, flash
 from flask_sqlalchemy import SQLAlchemy
-from flask_bcrypt import bcrypt
+from flask_bcrypt import Bcrypt
 import os
 import uuid
 import torch
@@ -28,6 +28,7 @@ app = Flask(__name__)
 app.secret_key = os.urandom(24)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+bcrypt = Bcrypt(app)
 
 # Voice cloning configuration
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
@@ -103,10 +104,10 @@ class User(db.Model):
     def __init__(self, name, email, password):
         self.name = name
         self.email = email
-        self.password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+        self.password = bcrypt.generate_password_hash(password).decode('utf-8')
         
     def check_password(self, password):
-        return bcrypt.checkpw(password.encode('utf-8'), self.password.encode('utf-8'))
+        return bcrypt.check_password_hash(self.password, password)
     
 # Create the database tables
 with app.app_context():
@@ -300,15 +301,18 @@ def download_file(filename):
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        email = request.form.get('email')
-        password = request.form.get('password')
-        user = User.query.filter_by(email=email).first()
-        if user and user.check_password(password):
-            session['user'] = user.name
-            return redirect(url_for('index'))
+        email = request.form['email']
+        password = request.form['password']
         
-        # In a real app, you would flash a message here
-        return redirect(url_for('login'))
+        user = User.query.filter_by(email=email).first()
+        
+        if user and user.check_password(password):
+            session['user_id'] = user.id
+            session['user_name'] = user.name
+            flash('Login successful!', 'success')
+            return redirect(url_for('dashboard'))
+        else:
+            flash('Invalid email or password', 'error')
     
     return render_template('login.html')
 
@@ -355,8 +359,21 @@ def register():
 
 @app.route('/logout')
 def logout():
-    session.pop('user', None)
+    session.pop('user_id', None)
+    session.pop('user_name', None)
+    flash('You have been logged out', 'info')
     return redirect(url_for('index'))
+
+@app.route('/dashboard')
+def dashboard():
+    if 'user_id' not in session:
+        flash('Please log in to access your dashboard', 'error')
+        return redirect(url_for('login'))
+    return render_template('dashboard.html')
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
 if __name__ == '__main__':
     print("--- Starting VoxLite Voice Cloning Service ---")

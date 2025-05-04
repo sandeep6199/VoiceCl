@@ -240,6 +240,33 @@ p {
   width: 100%;
 }
 
+/* Upload Voice Button in Navbar */
+.upload-voice-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(99, 102, 241, 0.15);
+  color: var(--primary-light) !important;
+  padding: 8px 14px !important;
+  border-radius: 8px;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  transition: all 0.3s ease;
+}
+
+.upload-voice-btn:hover {
+  background: rgba(99, 102, 241, 0.25);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+}
+
+.upload-voice-btn i {
+  font-size: 0.9rem;
+}
+
+.upload-voice-btn::after {
+  display: none;
+}
+
 .header-actions {
   display: flex;
   gap: 1rem;
@@ -360,6 +387,13 @@ p {
     padding: 15px 25px;
     width: 100%;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  
+  .upload-voice-btn {
+    margin: 15px 25px;
+    justify-content: center;
+    width: calc(100% - 50px);
+    padding: 12px 20px !important;
   }
 
   .nav-list li a::after {
@@ -2328,4 +2362,93 @@ footer {
     bottom: 20px;
     right: 20px;
   }
+}
+
+/* Flash Messages */
+.flash-messages {
+  position: fixed;
+  top: var(--header-height);
+  left: 0;
+  right: 0;
+  z-index: 5000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  pointer-events: none;
+}
+
+.flash-message {
+  max-width: 600px;
+  width: 100%;
+  padding: 16px 20px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  animation: slide-in 0.3s ease-out forwards;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  pointer-events: auto;
+}
+
+@keyframes slide-in {
+  0% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.flash-message.success {
+  background-color: rgba(16, 185, 129, 0.9);
+  color: white;
+}
+
+.flash-message.error {
+  background-color: rgba(239, 68, 68, 0.9);
+  color: white;
+}
+
+.flash-message.info {
+  background-color: rgba(59, 130, 246, 0.9);
+  color: white;
+}
+
+.flash-message.warning {
+  background-color: rgba(245, 158, 11, 0.9);
+  color: white;
+}
+
+.flash-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.flash-icon {
+  font-size: 18px;
+}
+
+.flash-text {
+  font-weight: 500;
+}
+
+.flash-close {
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.flash-close:hover {
+  opacity: 1;
 } 
