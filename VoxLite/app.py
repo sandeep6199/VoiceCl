@@ -16,7 +16,7 @@ import torch.serialization
 from TTS.tts.configs.xtts_config import XttsConfig
 
 from pydub.utils import which
-AudioSegment.converter = which("ffmpeg")
+AudioSegment.converter = which(r"D:\ffmpeg\ffmpeg.exe")
 
 
 # Set up logging
@@ -181,6 +181,11 @@ def index():
 
 @app.route('/voice_clone')
 def voice_clone_page():
+    # --- SECURITY CHECK: Ensure user is logged in before allowing access ---
+    if 'user_id' not in session:
+        flash('Please log in to access the voice cloning page.', 'error')
+        return redirect(url_for('login'))
+
     get_tts_model()  # Initialize model if not already loaded
     if model_init_error:
         flash(f"Voice Cloning System Error: {model_init_error}", "error")
@@ -216,6 +221,7 @@ def clone_voice():
     temp_wav_path_info = None
 
     try:
+        # --- FIX: Convert input to WAV and determine Language Code ---
         converted_wav_path, temp_wav_path_info = convert_to_wav(original_input_path)
 
         if selected_language_option == 'hinglish':
@@ -225,8 +231,24 @@ def clone_voice():
         else:
             lang_code = selected_language_option
 
+        # --- Audio Enhancement: Pre-processing Reference Audio ---
+        # Normalize the reference audio to help the AI clearly understand the voice characteristics
+        from pydub import effects
+        ref_audio = AudioSegment.from_file(converted_wav_path)
+        ref_audio = effects.normalize(ref_audio)
+        ref_audio.export(converted_wav_path, format="wav")
+
         output_filename = f"output_{uuid.uuid4()}.wav"
         output_path = os.path.join(app.config['OUTPUT_FOLDER'], output_filename)
+
+        # Advanced Inference Parameters for professional quality
+        inference_params = {
+            "temperature": 0.7,      # Creativity vs Stability (0.7 is a tested balance)
+            "repetition_penalty": 5.0, # Prevents word/syllable repetition
+            "top_k": 50,             # Voice sharpness
+            "top_p": 0.85,           # Speech flow
+            "speed": 1.0             # Natural speaking rate
+        }
 
         if selected_language_option == 'hi' and len(text) > 200:
             text_chunks = split_hindi_text(text)
@@ -239,7 +261,8 @@ def clone_voice():
                         text=chunk,
                         file_path=temp_output,
                         speaker_wav=converted_wav_path,
-                        language=lang_code
+                        language=lang_code,
+                        **inference_params
                     )
                     temp_audio_files.append(temp_output)
                 
@@ -256,8 +279,15 @@ def clone_voice():
                 text=text,
                 file_path=output_path,
                 speaker_wav=converted_wav_path,
-                language=lang_code
+                language=lang_code,
+                **inference_params
             )
+
+        # --- Audio Enhancement: Post-processing Generated Audio ---
+        # Clean up and balance the generated audio for a professional "Studio" finish
+        generated_audio = AudioSegment.from_file(output_path)
+        generated_audio = effects.normalize(generated_audio)
+        generated_audio.export(output_path, format="wav")
 
         return jsonify({
             'success': True,
@@ -310,7 +340,7 @@ def login():
             session['user_id'] = user.id
             session['user_name'] = user.name
             flash('Login successful!', 'success')
-            return redirect(url_for('dashboard'))
+            return redirect(url_for('voice_clone'))
         else:
             flash('Invalid email or password', 'error')
     
@@ -324,35 +354,33 @@ def register():
         password = request.form.get('password')
         confirm_password = request.form.get('confirm_password')
 
-        # Validation checks
+        # --- MULTI-FACTOR PASSWORD VALIDATION ---
         error = None
         if not all([name, email, password, confirm_password]):
-            error = 'All fields are required'
+            error = 'All fields are required!'
         elif password != confirm_password:
-            error = 'Passwords do not match'
+            error = 'Passwords do not match!'
         elif len(password) < 8:
-            error = 'Password must be at least 8 characters long'
+            error = 'Password must be at least 8 characters long!'
         elif not any(char.isdigit() for char in password):
-            error = 'Password must contain at least one digit'
-        elif not any(char.isalpha() for char in password):
-            error = 'Password must contain at least one letter'
-        elif not any(char in '!@#$%^&*()_+' for char in password):
-            error = 'Password must contain at least one special character'
+            error = 'Password must contain at least one number!'
         elif not any(char.isupper() for char in password):
-            error = 'Password must contain at least one uppercase letter'
+            error = 'Password must contain at least one uppercase letter!'
+        elif not any(char in '!@#$%^&*()_+-=[]{}|;:,.<>?' for char in password):
+            error = 'Password must contain at least one special character!'
         elif User.query.filter_by(email=email).first():
-            error = 'Email already registered'
+            error = 'This Email is already registered. Please login.'
 
         if error:
             flash(error, 'error')
             return redirect(url_for('register'))
 
-        # If validation passes, create new user
+        # Validation Passed: Create new user
         new_user = User(name=name, email=email, password=password)
         db.session.add(new_user)
         db.session.commit()
         
-        flash('Registration successful! Please login.', 'success')
+        flash('Success! Account created. You can now login.', 'success')
         return redirect(url_for('login'))
 
     return render_template('register.html')
