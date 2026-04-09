@@ -241,13 +241,13 @@ def clone_voice():
         output_filename = f"output_{uuid.uuid4()}.wav"
         output_path = os.path.join(app.config['OUTPUT_FOLDER'], output_filename)
 
-        # Advanced Inference Parameters for professional quality
+        # Advanced Inference Parameters - Fine-tuned for Accent Originality and Stability
         inference_params = {
-            "temperature": 0.7,      # Creativity vs Stability (0.7 is a tested balance)
-            "repetition_penalty": 5.0, # Prevents word/syllable repetition
-            "top_k": 50,             # Voice sharpness
-            "top_p": 0.85,           # Speech flow
-            "speed": 1.0             # Natural speaking rate
+            "temperature": 0.6,      # Lowered for higher similarity and accent fidelity
+            "repetition_penalty": 10.0, # Increased to prevent stuttering and keep the tone stable
+            "top_k": 50,             # Maintains audio sharpness
+            "top_p": 0.8,            # Tighter focus on the reference speaker's traits
+            "speed": 1.0             # Standard natural speed
         }
 
         if selected_language_option == 'hi' and len(text) > 200:
