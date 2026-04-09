@@ -56,12 +56,13 @@ def get_tts_model():
     global tts_model_instance, model_init_error
     if tts_model_instance is None and model_init_error is None:
         try:
-            # --- FIX: Add the necessary classes to safe globals ---
-            logger.info("Adding XTTS config classes to PyTorch safe globals (for PyTorch >= 2.6 compatibility)")
-            # Import the additional required class
-            from TTS.tts.models.xtts import XttsAudioConfig
-            # Allowlist all specific config classes mentioned in the error
-            torch.serialization.add_safe_globals([XttsConfig, XttsAudioConfig])
+            # --- FIX: Add classes to safe globals only if the feature exists (for PyTorch >= 2.4) ---
+            if hasattr(torch.serialization, 'add_safe_globals'):
+                logger.info("Adding XTTS config classes to PyTorch safe globals")
+                from TTS.tts.models.xtts import XttsAudioConfig
+                torch.serialization.add_safe_globals([XttsConfig, XttsAudioConfig])
+            else:
+                logger.info("Skipping add_safe_globals (Not supported in this PyTorch version)")
             
             # Alternative approach using weights_only=False if allowlisting fails
             # Modify the TTS library's torch.load calls
